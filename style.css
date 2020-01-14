@@ -1,0 +1,558 @@
+
+body {
+      margin: 0;
+      padding: 0;
+}
+
+#loader {
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	width: 100%;
+	color: #4d4d4d;
+	opacity: 0.4;
+	text-align: center;
+}
+
+#map {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 100%;
+}
+
+.mapboxgl-ctrl {
+  left: 1rem;
+  margin: 0 0 8px;
+}
+
+.mapboxgl-ctrl-geocoder--icon-search {
+  position: absolute;
+  top: 7px;
+  left: 8px;
+  width: 23px;
+  height: 23px;
+}
+
+.mapboxgl-ctrl-geocoder--input {
+  font: inherit;
+  height: 40px;
+  padding: 6px 45px;
+  width: 100%;
+}
+
+.mapboxgl-ctrl-geocoder .mapboxgl-ctrl-geocoder--pin-right > * {
+  z-index: 2;
+  position: absolute;
+  right: 8px;
+  top: 7px;
+}
+
+#geoParams {
+	width: 100%;
+}
+
+#form {
+  z-index: 9999;
+  width: 50vw;
+	left: 25vw;
+  top: 10vh;
+  background-color: #fff!important;
+  min-height: 25vh;
+  position: relative!important;
+  min-width: 750px!important;
+  /*display: none;*/
+}
+
+.customGeoForm {
+  max-width: 29vw;
+  min-width: 324px;
+  max-height: 80vh;
+  display: none;
+  right: 10px;
+  top: 2.5vh;
+}
+
+#resetForm {
+  display: none;
+}
+
+label.clear-out {
+  margin-left: .5rem;
+}
+
+.bg-gray-faint {
+  background-color: #fff!important;
+}
+
+#isoProfiles {
+	width: 100%;
+	justify-content: space-between;
+}
+
+#button-section {
+  padding-top: 3rem;
+  position: relative;
+}
+
+.geo-button-section {
+  position: relative;
+}
+
+.custom-geo-params {
+  display: none;
+}
+
+.btn-success {
+  border-color: #39f3bb;
+  background-color: #39f3bb;
+}
+
+.btn-success:hover {
+  border-color: #00F2A9;
+  background-color: #00F2A9;
+}
+
+#middle {
+  padding-left: 0;
+}
+
+h1 {
+	font-size: 2em;
+}
+
+h3 {
+	font-size: 1.25rem;
+}
+
+h5 {
+	display: inline;
+}
+
+form {
+	padding-top: 5px;
+}
+
+form:first-of-type {
+	padding-top: 0px;
+	margin-bottom: 6px;
+}
+
+label {
+	/*margin-top: .5rem;*/
+}
+
+input {
+  font-size: 10px;
+  cursor: pointer;
+}
+
+#advanced-radius {
+  float: right;
+  padding-left: 1em;
+}
+
+#advanced-drive-time {
+  float: right;
+}
+
+.form-advanced-area {
+  font-size: .8rem;
+  color: blue;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+#form-title-dropdown {
+	/*border-bottom: 1px solid #686868;*/
+	font-size: 1.7em;
+  margin-bottom: 0!important;
+}
+
+.form-check-inline {
+  display: block;
+}
+
+#form-dropdown {
+	font-size: 1.25em;
+}
+
+#formLabel {
+	display: flex;
+	text-align: center;
+}
+
+#tabLabels {
+	display: flex;
+	position: relative;
+	justify-content: space-between;
+	margin-bottom: 6px;
+}
+
+#filter-section {
+  padding-top: 6px;
+}
+
+.form-title-tab {
+	display: flex;
+	position: relative;
+	flex-direction: row;
+	/*justify-content: center;*/
+}
+
+.form-subtitle {
+  font-size: 15px;
+  font-weight: 700!important;
+}
+
+.form-subtitle:first-of-type {
+  padding-right: 0.5rem;
+}
+
+.custom-geo-tab {
+	display: inline-flex;
+	position: relative;
+	flex-direction: row;
+	cursor: pointer;
+	border-bottom: 1px solid #686868;
+}
+
+.custom-geo-label {
+	padding-right: 10px;
+}
+
+.custom-geo-dropdown {
+	display: inline-block;
+	position: relative;
+	width: auto;
+	margin-bottom: 7px;
+	align-self: flex-end;
+	white-space: nowrap;
+}
+
+.custom-geo-modify {
+  padding-top: 0.5rem;
+  display: none;
+}
+
+#radial-update-container {
+	padding-left: 10px;
+}
+
+.chosen-container-multi .chosen-choices {
+	max-height: 8rem;
+	overflow: auto;
+}
+
+input:checked+.toggle {
+    background: #39f3bb;
+    color: #fff;
+}
+
+.foot {
+    border-top: 1px solid #999999;
+    position:fixed;
+    width: 90vw;
+    z-index: 10000;
+    text-align:center;
+    font-size:18px;
+    color: #000;
+    background: #FFF;
+    display: block;
+    justify-content: center; /* align horizontal */
+    border-top-left-radius:25px;
+    border-top-right-radius:25px;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+.side-panel-container {
+	position:fixed;
+    width: 50vw;
+    z-index: 9999;
+    text-align:center;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    height: 95vh;
+    top: 2.5vh;
+    left: 24px;
+}
+
+#sidePanelClose {
+	position: fixed;
+	width: 2.5vw;
+	z-index: 10000;
+	display: none;
+    text-align: center;
+    right: 24px;
+    top: 5vh;
+}
+
+#sidePanelOpen {
+	position:fixed;
+    width: 2.5vw;
+    z-index: 9999;
+    text-align:center;
+    /*display: none;*/
+    height: 90vh;
+    top: 5vh;
+    left: 24px;
+    background-color: white;
+}
+
+#sidePanelCloseButton {
+	font-size: 150%;
+	padding-top: .5em;
+	cursor: pointer;
+}
+
+#sidePanelOpenButton {
+	font-size: 150%;
+	padding-top: .5em;
+	cursor: pointer;
+}
+
+.side-panel-section {
+	background-color: white;
+}
+
+.side-panel-title {
+	height: 8%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	border-bottom: solid 1px #39f3bb;
+}
+.side-panel-table {
+	height: 52%;
+	display: flex;
+	justify-content: center;
+	padding-top: 1em;
+}
+#sidePanelLabels {
+	height: 10%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+#sidePanelLine {
+  height: 35%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.label-subtitle {
+  font-size: small;
+  margin-bottom: 0;
+}
+
+.label-row {
+  width: 90%;
+}
+
+span {
+	padding-left: .5em;
+	padding-right: .5em;
+}
+
+.table-container {
+	width: 95%;
+	overflow: auto;
+}
+
+#dataTable_paginate {
+	float: right;
+}
+
+#dataTable_info {
+	float: left;
+	padding-top: 0.5em;
+}
+
+.pagination {
+	display: flex;
+}
+
+.paginate_button {
+	padding-right: 0.25em;
+}
+
+.paginate_button:last-of-type {
+	padding-right: 0em;
+}
+
+.dt-buttons {
+	display: flex;
+	float: left;
+	padding-bottom: 6px;
+}
+
+.dt-buttons .btn {
+	cursor: pointer;
+	color: #fff;
+	background-color: #39f3bb;
+	border-color: #39f3bb;
+	padding: .375rem .75rem;
+	border-radius: .25em;
+}
+
+.toggle {
+	border-radius: 5px;
+}
+
+.paginate_button {
+	padding-right: .25em;
+	padding-left: .25em;
+}
+
+.active {
+	color: #fff;
+	background-color: #003a5d;
+	border-color: #003a5d;
+}
+
+.line {
+    fill: none;
+    stroke: #39f3bb;
+    stroke-width: 3;
+}
+
+.axis path,
+.axis line {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}
+.axis text {
+  font-size: 10px;
+  font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
+}
+
+/* Absolute Center Spinner */
+.loading {
+  display: none;
+  position: fixed;
+  z-index: 999;
+  height: 2em;
+  width: 2em;
+  overflow: show;
+  margin: auto;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+}
+
+/*/* Transparent Overlay */
+.loading:before {
+  content: '';
+  display: block;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+    background: radial-gradient(rgba(20, 20, 20,.8), rgba(0, 0, 0, .5));
+
+  background: -webkit-radial-gradient(rgba(20, 20, 20,.8), rgba(0, 0, 0,.5));
+}*/
+
+/* :not(:required) hides these rules from IE9 and below */
+.loading:not(:required) {
+  /* hide "loading..." text */
+  font: 0/0 a;
+  color: transparent;
+  text-shadow: none;
+  background-color: transparent;
+  border: 0;
+}
+
+.loading:not(:required):after {
+  content: '';
+  display: block;
+  font-size: 10px;
+  width: 1em;
+  height: 1em;
+  margin-top: -0.5em;
+  -webkit-animation: spinner 150ms infinite linear;
+  -moz-animation: spinner 150ms infinite linear;
+  -ms-animation: spinner 150ms infinite linear;
+  -o-animation: spinner 150ms infinite linear;
+  animation: spinner 150ms infinite linear;
+  border-radius: 0.5em;
+  -webkit-box-shadow: rgba(255,255,255, 0.75) 1.5em 0 0 0, rgba(255,255,255, 0.75) 1.1em 1.1em 0 0, rgba(255,255,255, 0.75) 0 1.5em 0 0, rgba(255,255,255, 0.75) -1.1em 1.1em 0 0, rgba(255,255,255, 0.75) -1.5em 0 0 0, rgba(255,255,255, 0.75) -1.1em -1.1em 0 0, rgba(255,255,255, 0.75) 0 -1.5em 0 0, rgba(255,255,255, 0.75) 1.1em -1.1em 0 0;
+box-shadow: rgba(255,255,255, 0.75) 1.5em 0 0 0, rgba(255,255,255, 0.75) 1.1em 1.1em 0 0, rgba(255,255,255, 0.75) 0 1.5em 0 0, rgba(255,255,255, 0.75) -1.1em 1.1em 0 0, rgba(255,255,255, 0.75) -1.5em 0 0 0, rgba(255,255,255, 0.75) -1.1em -1.1em 0 0, rgba(255,255,255, 0.75) 0 -1.5em 0 0, rgba(255,255,255, 0.75) 1.1em -1.1em 0 0;
+}
+
+/* Animation */
+
+@-webkit-keyframes spinner {
+  0% {
+    -webkit-transform: rotate(0deg);
+    -moz-transform: rotate(0deg);
+    -ms-transform: rotate(0deg);
+    -o-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+    -moz-transform: rotate(360deg);
+    -ms-transform: rotate(360deg);
+    -o-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+@-moz-keyframes spinner {
+  0% {
+    -webkit-transform: rotate(0deg);
+    -moz-transform: rotate(0deg);
+    -ms-transform: rotate(0deg);
+    -o-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+    -moz-transform: rotate(360deg);
+    -ms-transform: rotate(360deg);
+    -o-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+@-o-keyframes spinner {
+  0% {
+    -webkit-transform: rotate(0deg);
+    -moz-transform: rotate(0deg);
+    -ms-transform: rotate(0deg);
+    -o-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+    -moz-transform: rotate(360deg);
+    -ms-transform: rotate(360deg);
+    -o-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+@keyframes spinner {
+  0% {
+    -webkit-transform: rotate(0deg);
+    -moz-transform: rotate(0deg);
+    -ms-transform: rotate(0deg);
+    -o-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+    -moz-transform: rotate(360deg);
+    -ms-transform: rotate(360deg);
+    -o-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
