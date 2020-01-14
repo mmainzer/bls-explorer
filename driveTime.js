@@ -45,6 +45,10 @@ isoGeocoder.on('result', function(ev) {
 // if user grabs marker and starts to move it
 function onDragStart() {
 
+  // hide form and clear svg
+  $(".side-panel-container").hide();
+  $( "svg" ).remove();
+
   // clear out buffer/isochrone layers if they're on the page
   map.setLayoutProperty('isoLayer', 'visibility','none');
   map.setLayoutProperty('buffer', 'visibility','none');
