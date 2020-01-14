@@ -16,8 +16,6 @@ function commas(x) {
 }
 
 function buildBans(dataset) {
-	console.log(dataset);
-
 	const array = [];
 
 	let latestTotal = 0;
@@ -99,9 +97,6 @@ function buildLine(dataset) {
 	let height = $(window).height() * .32;
 	let width = $(window).width() / 2;
 
-	console.log(height);
-	console.log(width);
-
 	let margin = {top: 20, right: 15, bottom: 25, left: 50};
 
 	width = width - margin.left - margin.right;
@@ -177,8 +172,6 @@ function buildTable(dataset) {
 		let county = geoidArray.map(id => countyObj.counties.find(({ geoid }) => geoid === id).area);
 		// for each index of the data array
 		for (index = 0; index < data.length; ++index) {
-			console.log(geoid);
-			console.log(county[0]);
 			let tempArrayTwo = [];
 			let month = data[index].periodName;
 			let year = data[index].year;
@@ -191,18 +184,14 @@ function buildTable(dataset) {
 			tempArray.push(tempArrayTwo);
 		}
 		arrAll.push(tempArray);
-		console.log(arrAll);
 	});
 
 	let tableData = [];
 	arrAll.forEach(function(element) {
-		console.log(element);
 		for (index = 0; index < element.length; ++index) {
 			tableData.push(element[index]);
 		}
 	});
-
-	console.log(tableData);
 
 	// build row and send to html table
 	tableData.forEach(function(rowData) {

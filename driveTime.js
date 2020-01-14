@@ -35,6 +35,7 @@ isoGeocoder.on('result', function(ev) {
         lngLat = [coords[0], coords[1]];
 
         isoMarker.setLngLat(lngLat).addTo(map);
+        console.log(isoMarker);
 
         getIso();
 
@@ -196,6 +197,7 @@ function getIso() {
           padding : {top: 50, bottom:50, left: 800, right: 20}
         });
         isoMarker.setLngLat(lngLat);
+        console.log(isoMarker);
         map.setLayoutProperty('isoLayer', 'visibility','visible');
         $('.side-panel-container').show();
       });

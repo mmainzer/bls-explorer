@@ -48,6 +48,13 @@ body {
   top: 7px;
 }
 
+.mapboxgl-marker {
+    width: 30px;
+    height: 40px;
+    background-image: url('map-marker.svg');
+    background-size: cover;
+}
+
 #geoParams {
 	width: 100%;
 }
