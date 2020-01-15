@@ -192,6 +192,9 @@ document.getElementById('geo-data-update').onclick = function updateGeography() 
 
 	$.ajax(settings).done(function (response) {
 	  const data = response.Results.series;
+	  // zoom to selected area
+	  getBounds(selectedGeoids);
+	  
 	  // do stuff with returned data here
 	  buildBans(data);
 	  buildLine(data);
@@ -211,8 +214,6 @@ document.getElementById('geo-data-update').onclick = function updateGeography() 
 
 	  // reveal all visuals and hide all unnecessary elements
 	  $(".loading").hide();
-	  // zoom to selected area
-	  getBounds(selectedGeoids);
 	  $('.side-panel-container').show();
 
 	});
