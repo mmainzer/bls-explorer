@@ -71,6 +71,15 @@ body {
   /*display: none;*/
 }
 
+#browserAlert {
+  z-index: 9999;
+  width: 100vw;
+  background-color: #fff!important;
+  position: relative!important;
+  border: 3px solid purple;
+  display: none;
+}
+
 .customGeoForm {
   max-width: 29vw;
   min-width: 324px;

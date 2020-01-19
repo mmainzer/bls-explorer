@@ -1,4 +1,16 @@
+// function to detect Internet Explorer
 
+function isInternetExplorer() {
+	return window.navigator.userAgent.match(/(MSIE|Trident)/);
+}
+
+function showBrowserAlert() {
+	if(isInternetExplorer()){
+       // Do not show initial form
+       $("#form").hide();
+       $("#browserAlert").show();
+    }
+}
 
 // style dropdowns with chosen
 
@@ -77,6 +89,9 @@ $("#isoModify").click(function() {
 // dropdown filters for level to geography dropdowns
 
 (function() {
+
+	// check for IE
+	showBrowserAlert();
 
 	// object of arrays contained in counties.js
 	// assign dropdown elements to variables
