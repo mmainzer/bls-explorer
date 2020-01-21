@@ -1,3 +1,5 @@
+
+
 // function to detect Internet Explorer
 
 function isInternetExplorer() {
@@ -9,8 +11,13 @@ function showBrowserAlert() {
        // Do not show initial form
        $("#form").hide();
        $("#browserAlert").show();
+    } else {
+    	console.log('All good');
     }
 }
+
+// check browser width and set bounding box for zoom later based on said width
+let bbox;
 
 // style dropdowns with chosen
 
@@ -44,6 +51,8 @@ $("#advanced-radius").click(function() {
 // close custom geo form and open regular form on cancel
 $(".clear-out").click(function() {
 	$(".customGeoForm").hide();
+
+	$("#geoAlert").hide();
 
 	// if Datatable currently exists, then clear and kill it
 	if ( $.fn.dataTable.isDataTable('#emsiTable') ) {
@@ -87,7 +96,6 @@ $("#isoModify").click(function() {
 
 
 // dropdown filters for level to geography dropdowns
-
 (function() {
 
 	// check for IE
@@ -183,55 +191,59 @@ document.getElementById('geo-data-update').onclick = function updateGeography() 
 		var areas = selectedGeoids.map(selectedGeoid => "LAUCN"+selectedGeoid+"0000000006").join(',');
 	}
 
-	// console.log(selectedGeoids);
-	console.log(areas);
+	console.log(selectedGeoids);
+	console.log(selectedGeoids.length);
 
-	//////////////////////////////////////////////////////////////////////////////////////////////////////
+	if (selectedGeoids.length > 50) {
+		showError();
+	} else {
+		//////////////////////////////////////////////////////////////////////////////////////////////////////
 									// MAKE REQUEST FOR TOKEN THEN DATA
-	//////////////////////////////////////////////////////////////////////////////////////////////////////
+		//////////////////////////////////////////////////////////////////////////////////////////////////////
 
-	const settings = {
-	  "async": true,
-	  "crossDomain": true,
-	  "url": "https://api.bls.gov/publicAPI/v2/timeseries/data/?registrationkey=2075e7710bca44038c4abc07eecee9d5",
-	  "method": "POST",
-	  "headers": {
-	    "Content-Type": "application/x-www-form-urlencoded"
-	  },
-	  "data": {
-	    "seriesid": areas,
-	    "startyear":"2017",
-	    "endyear":"2019",
-	  }
-	}
+		const settings = {
+		  "async": true,
+		  "crossDomain": true,
+		  "url": "https://api.bls.gov/publicAPI/v2/timeseries/data/?registrationkey=2075e7710bca44038c4abc07eecee9d5",
+		  "method": "POST",
+		  "headers": {
+		    "Content-Type": "application/x-www-form-urlencoded"
+		  },
+		  "data": {
+		    "seriesid": areas,
+		    "startyear":"2017",
+		    "endyear":"2019",
+		  }
+		}
 
-	$.ajax(settings).done(function (response) {
-	  const data = response.Results.series;
-	  // zoom to selected area
-	  getBounds(selectedGeoids);
-	  
-	  // do stuff with returned data here
-	  buildBans(data);
-	  buildLine(data);
-	  buildTable(data);
+		$.ajax(settings).done(function (response) {
+		  const data = response.Results.series;
+		  // zoom to selected area
+		  getBounds(selectedGeoids);
+		  
+		  // do stuff with returned data here
+		  buildBans(data);
+		  buildLine(data);
+		  buildTable(data);
 
-	  $('#dataTable').DataTable({
-			"lengthChange" : false,
-			"pageLength" : 5,
-			"autoWidth" : true,
-			"dom" : "Bfrtip",
-			"pagingType" : "full",
-			"buttons" : [
-				{extend: 'csv', exportOptions:{columns:':visible'}}
-			],
-			"colReorder" : true
+		  $('#dataTable').DataTable({
+				"lengthChange" : false,
+				"pageLength" : 5,
+				"autoWidth" : true,
+				"dom" : "Bfrtip",
+				"pagingType" : "full",
+				"buttons" : [
+					{extend: 'csv', exportOptions:{columns:':visible'}}
+				],
+				"colReorder" : true
+			});
+
+		  // reveal all visuals and hide all unnecessary elements
+		  $(".loading").hide();
+		  $('.side-panel-container').show();
+
 		});
-
-	  // reveal all visuals and hide all unnecessary elements
-	  $(".loading").hide();
-	  $('.side-panel-container').show();
-
-	});
+	}
 
 }
 
@@ -242,6 +254,16 @@ function getBounds(filterArray) {
 		url: countyUrl
 	}).done(function(data) {
 		console.log(data);
+
+		if ($(window).width() < 800) {
+			bbox = {top: 380, bottom:2, left: 2, right: 2};
+			console.log(bbox);
+			console.log($(window).width());
+		} else {
+			bbox = {top: 50, bottom:50, left: 900, right: 20};
+			console.log(bbox);
+			console.log($(window).width());
+		}
 
 		let features = data.features.filter(function(item) {
 			return filterArray.indexOf(item.properties.geoid) !== -1;
@@ -257,11 +279,18 @@ function getBounds(filterArray) {
 		var boundingBox = turf.bbox(area);
 
 		map.fitBounds(boundingBox, {
-			padding : {top: 60, bottom:60, left: 1000, right: 20}
+			padding : bbox
 		});
 	})
 }
 
+function showError() {
+	// show a hidden div with error message
+	$(".loading").hide();
+	$(".customGeoForm").hide();
+	// include a reset button on this error message
+	$("#geoAlert").show();
+}
 
 
 

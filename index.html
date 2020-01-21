@@ -56,8 +56,21 @@
     </form>
   </div>
 
+    <!-- BROWSER ALERT IF INTERNET EXPLORER -->
+  <div id="geoAlert" class="absolute fl py24 px24 bg-gray-faint">
+    <form class="formTitle">
+      <div class="form-title-tab">
+        <h2 class="txt-l txt-bold mb6 custom-geo-label" id="alertTitle">Incompatible Selection</h2>
+      </div>
+    </form>
+    <form class="form-section">
+      <p>Your selection contains either too many or too few counties. The selection can contain a maximum of 50 counties, and a minimum of 1.</p>
+      <button type="button" class="btn btn-success clear-out">Reset</button>
+    </form>
+  </div>
+
   <!-- STANDARD FORM IN CENTER -->
-  <div id="form" class='absolute fl my24 mx24 py24 px24 bg-gray-faint round'>
+  <div id="form" class='absolute fl my24 py24 px24 bg-gray-faint round'>
     
     <form class="formTitle">
       <div class="form-title-tab">
@@ -113,6 +126,7 @@
       <div class="form-title-tab">
         <h1 class="txt-l txt-bold mb6 custom-geo-label" id="form-title-dropdown">Drive-Time Area</h1>
         <label id="isoModify" class="form-advanced-area area-selection form-check-label custom-geo-modify">Modify Area</label>
+        <label class="mobile-clear form-advanced-area area-selection form-check-label clear-out">Reset</label>
       </div>
     </form>
     <form id='isoParams' class="custom-geo-popup iso-tab form-section">
@@ -175,6 +189,7 @@
       <div class="form-title-tab">
         <h1 class="txt-l txt-bold mb6 custom-geo-label" id="form-title-dropdown">Choose a Radius</h1>
         <label id="radiusModify" class="form-advanced-area area-selection form-check-label custom-geo-modify">Modify Area</label>
+        <label class="mobile-clear form-advanced-area area-selection form-check-label clear-out">Reset</label>
       </div>
     </form>
     <form id='bufferUnit' class="custom-geo-popup iso-tab form-section">

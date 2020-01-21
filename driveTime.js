@@ -106,6 +106,16 @@ function getIso() {
   $('#dataTable thead').empty();
   $('#dataTable tbody').empty();
 
+  if ($(window).width() < 800) {
+    bbox = {top: 380, bottom:2, left: 2, right: 2};
+    console.log(bbox);
+    console.log($(window).width());
+  } else {
+    bbox = {top: 220, bottom:10, left: 900, right: 20};
+    console.log(bbox);
+    console.log($(window).width());
+  }
+
 	// gather array of geographies from span
 	const selectedGeographies = $("#geography_chosen span").get().map(el => el.textContent);
 	const selectedLevel = $("#level_chosen span").text();
@@ -156,55 +166,60 @@ function getIso() {
       const values = collected.features[0].properties.geoid;
       const areas = values.map(value => "LAUCN"+value+"0000000006").join(',');
 
+      console.log(values);
       console.log(areas);
 
-      // BUILD API CALL
-      const settings = {
-        "async": true,
-        "crossDomain": true,
-        "url": "https://api.bls.gov/publicAPI/v2/timeseries/data/?registrationkey=2075e7710bca44038c4abc07eecee9d5",
-        "method": "POST",
-        "headers": {
-          "Content-Type": "application/x-www-form-urlencoded"
-        },
-        "data": {
-          "seriesid": areas,
-          "startyear":"2017",
-          "endyear":"2019",
+      if (values.length > 50 || values.length < 1) {
+        showError();
+      } else {
+        // BUILD API CALL
+        const settings = {
+          "async": true,
+          "crossDomain": true,
+          "url": "https://api.bls.gov/publicAPI/v2/timeseries/data/?registrationkey=2075e7710bca44038c4abc07eecee9d5",
+          "method": "POST",
+          "headers": {
+            "Content-Type": "application/x-www-form-urlencoded"
+          },
+          "data": {
+            "seriesid": areas,
+            "startyear":"2017",
+            "endyear":"2019",
+          }
         }
+        // FETCH DATA VIA API
+        $.ajax(settings).done(function (response) {
+          const data = response.Results.series;
+
+          // DO SOMETHING WITH DATA
+          buildBans(data);
+          buildLine(data);
+          buildTable(data);
+          
+          $('#dataTable').DataTable({
+            "lengthChange" : false,
+            "pageLength" : 5,
+            "autoWidth" : true,
+            "dom" : "Bfrtip",
+            "pagingType" : "full",
+            "buttons" : [
+              {extend: 'csv', exportOptions:{columns:':visible'}}
+            ],
+            "colReorder" : true
+          });
+          // REVEAL VISUALS
+          // set now that data is collected and formatted, hide loader and show all elements
+          $(".loading").hide();
+          map.fitBounds(boundingBox, {
+            padding : bbox
+          });
+          isoMarker.setLngLat(lngLat);
+          console.log(isoMarker);
+          map.setLayoutProperty('isoLayer', 'visibility','visible');
+          $('.side-panel-container').show();
+        });
+
       }
-
-      // FETCH DATA VIA API
-      $.ajax(settings).done(function (response) {
-        const data = response.Results.series;
-
-        // DO SOMETHING WITH DATA
-        buildBans(data);
-        buildLine(data);
-        buildTable(data);
-        
-        $('#dataTable').DataTable({
-          "lengthChange" : false,
-          "pageLength" : 5,
-          "autoWidth" : true,
-          "dom" : "Bfrtip",
-          "pagingType" : "full",
-          "buttons" : [
-            {extend: 'csv', exportOptions:{columns:':visible'}}
-          ],
-          "colReorder" : true
-        });
-        // REVEAL VISUALS
-        // set now that data is collected and formatted, hide loader and show all elements
-        $(".loading").hide();
-        map.fitBounds(boundingBox, {
-          padding : {top: 50, bottom:50, left: 800, right: 20}
-        });
-        isoMarker.setLngLat(lngLat);
-        console.log(isoMarker);
-        map.setLayoutProperty('isoLayer', 'visibility','visible');
-        $('.side-panel-container').show();
-      });
 
     })
  
