@@ -76,7 +76,7 @@ function getBuffer() {
 		console.log(bbox);
 		console.log($(window).width());
 	} else {
-		bbox = {top: 200, bottom:50, left: 900, right: 20};
+		bbox = {top: 50, bottom:50, left: 1000, right: 20};
 		console.log(bbox);
 		console.log($(window).width());
 	}
