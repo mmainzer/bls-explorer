@@ -238,10 +238,6 @@ document.getElementById('geo-data-update').onclick = function updateGeography() 
 				"colReorder" : true
 			});
 
-		  // reveal all visuals and hide all unnecessary elements
-		  $(".loading").hide();
-		  $('.side-panel-container').show();
-
 		});
 	}
 
@@ -253,16 +249,13 @@ function getBounds(filterArray) {
 		method:'GET',
 		url: countyUrl
 	}).done(function(data) {
-		console.log(data);
-
+		
+		const left = $(window).width() / 2;
+		
 		if ($(window).width() < 800) {
 			bbox = {top: 380, bottom:2, left: 2, right: 2};
-			console.log(bbox);
-			console.log($(window).width());
 		} else {
-			bbox = {top: 50, bottom:50, left: 900, right: 20};
-			console.log(bbox);
-			console.log($(window).width());
+			bbox = {top: 10, bottom:10, left: left, right: 0};
 		}
 
 		let features = data.features.filter(function(item) {
@@ -274,13 +267,34 @@ function getBounds(filterArray) {
 			features: features
 		};
 
-		console.log(area);
+		let counties = area.features;
 
-		var boundingBox = turf.bbox(area);
+		let laborTotal = 0;
+		let unemploymentTotal = 0;
+
+		for (index = 0; index < counties.length; ++index) {
+			let unemployment = counties[index].properties.unemployment;
+			let labor = counties[index].properties['labor force'];
+
+			laborTotal += labor;
+			unemploymentTotal += unemployment;
+		}
+
+		let rate = ( unemploymentTotal / laborTotal ) * 100;
+		rate = round(rate, 1);
+
+		// create text for unemployment rate label
+		$("#unemploymentRateLabel").text(rate+"%");
+
+		let boundingBox = turf.bbox(area);
 
 		map.fitBounds(boundingBox, {
 			padding : bbox
 		});
+
+		// reveal all visuals and hide all unnecessary elements
+		$(".loading").hide();
+		$('.side-panel-container').show();
 	})
 }
 

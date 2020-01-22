@@ -358,12 +358,18 @@ input:checked+.toggle {
 	justify-content: center;
 	border-bottom: solid 1px #39f3bb;
 }
+
+.ban {
+  font-size: 1.75rem;
+}
+
 .side-panel-table {
 	height: 52%;
 	display: flex;
 	justify-content: center;
 	padding-top: 1em;
 }
+
 #sidePanelLabels {
 	height: 10%;
 	display: flex;
@@ -379,7 +385,7 @@ input:checked+.toggle {
 }
 
 .label-subtitle {
-  font-size: small;
+  font-size: x-small;
   margin-bottom: 0;
 }
 

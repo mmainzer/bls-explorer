@@ -106,14 +106,12 @@ function getIso() {
   $('#dataTable thead').empty();
   $('#dataTable tbody').empty();
 
+  const left = $(window).width() / 2;
+
   if ($(window).width() < 800) {
     bbox = {top: 380, bottom:2, left: 2, right: 2};
-    console.log(bbox);
-    console.log($(window).width());
   } else {
-    bbox = {top: 220, bottom:10, left: 900, right: 20};
-    console.log(bbox);
-    console.log($(window).width());
+    bbox = {top: 220, bottom:10, left: left, right: 0};
   }
 
 	// gather array of geographies from span
@@ -166,8 +164,28 @@ function getIso() {
       const values = collected.features[0].properties.geoid;
       const areas = values.map(value => "LAUCN"+value+"0000000006").join(',');
 
-      console.log(values);
-      console.log(areas);
+      let features = data.features.filter(function(item) {
+        return values.indexOf(item.properties.geoid) !== -1;
+      });
+
+      console.log(features);
+
+      let laborTotal = 0;
+      let unemploymentTotal = 0;
+
+      for (index = 0; index < features.length; ++index) {
+        let unemployment = features[index].properties.unemployment;
+        let labor = features[index].properties['labor force'];
+
+        laborTotal += labor;
+        unemploymentTotal += unemployment;
+      }
+
+      let rate = ( unemploymentTotal / laborTotal ) * 100;
+      rate = round(rate, 1);
+
+      // create text for unemployment rate label
+      $("#unemploymentRateLabel").text(rate+"%");
 
       if (values.length > 50 || values.length < 1) {
         showError();
