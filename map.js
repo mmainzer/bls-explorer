@@ -4,7 +4,7 @@
 
     const map = new mapboxgl.Map({
       container: 'map', // container id
-      style: 'mapbox://styles/mmainzer/ck23f3rnw5zut1cmdb4nmt288', // stylesheet
+      style: 'mapbox://styles/mmainzer/ck5r0lcgr0eti1iqiiglddux6', // stylesheetmapbox://styles/mmainzer/ck5r0lcgr0eti1iqiiglddux6
       center: [-83.007,32.731], // starting position [lng, lat]
       zoom: 6.8 // starting zoom
     });
