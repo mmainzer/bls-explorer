@@ -114,14 +114,14 @@ function getBuffer() {
 		// add buffer layer
 		map.addLayer({
 			"id": "buffer",
-			"type": "fill",
+			"type": "line",
 			"source": 'buff',
 			"layout": {
 			  'visibility':'none'
 			},
-			"paint": {
-			  "fill-color": "#39f3bb",
-			  "fill-opacity": 0.3			}
+			'paint': {
+                "line-width" : 1
+             }
 		}, "waterway-label");
 	}
 
@@ -136,6 +136,8 @@ function getBuffer() {
     	// get the necessary property of the centroid to populate APIs for data requests
     	const values = collected.features[0].properties.geoid;
 		const areas = values.map(value => "LAUCN"+value+"0000000006").join(',');
+
+		map.setFilter('counties', ["all",["match",["get","geoid"],values,true,false]]);
 
 		let features = data.features.filter(function(item) {
 			return values.indexOf(item.properties.geoid) !== -1;
@@ -203,6 +205,7 @@ function getBuffer() {
 			      padding : bbox
 			    });
 			    bufferMarker.setLngLat(lngLat);
+			    map.setLayoutProperty('counties', 'visibility','visible');
 			    map.setLayoutProperty('buffer', 'visibility','visible');
 			    $('.side-panel-container').show();
 	    	})

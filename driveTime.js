@@ -140,14 +140,13 @@ function getIso() {
             // add isochrone layer
             map.addLayer({
               'id': 'isoLayer',
-              'type': 'fill',
+              'type': 'line',
               'source': 'iso',
               'layout': {
                 'visibility':'none'
               },
               'paint': {
-                'fill-color': '#39f3bb',
-                'fill-opacity': 0.3
+                "line-width" : 1
               }
             }, "waterway-label");
         }
@@ -159,10 +158,16 @@ function getIso() {
     }).done(function(data) {
       // get the array of points inside the buffer
       var collected = turf.collect(isochrone, data, 'geoid', 'geoid');
+      console.log(collected);
 
       // get the necessary property of the centroid to populate APIs for data requests
       const values = collected.features[0].properties.geoid;
       const areas = values.map(value => "LAUCN"+value+"0000000006").join(',');
+
+      map.setFilter('counties', ["all",["match",["get","geoid"],values,true,false]]);
+
+      console.log(values);
+      console.log(areas);
 
       let features = data.features.filter(function(item) {
         return values.indexOf(item.properties.geoid) !== -1;
@@ -233,6 +238,7 @@ function getIso() {
           });
           isoMarker.setLngLat(lngLat);
           console.log(isoMarker);
+          map.setLayoutProperty('counties', 'visibility','visible');
           map.setLayoutProperty('isoLayer', 'visibility','visible');
           $('.side-panel-container').show();
         });

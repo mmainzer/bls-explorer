@@ -89,7 +89,7 @@
         'paint': {
           "fill-color": "#39f3bb",
           "fill-opacity": 0.3,
-          "fill-outline-color": "#39f3bb"
+          "fill-outline-color": "#000000"
         },
         'source-layer': 'southeast-counties-4k21g3'
       }, 'waterway-label')
