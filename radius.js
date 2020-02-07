@@ -183,6 +183,8 @@ function getBuffer() {
 	    	$.ajax(settings).done(function (response) {
 	    		const data = response.Results.series;
 
+	    		console.log(data);
+
 		  		// DO SOMETHING WITH DATA
 		  		buildBans(data);
 	        	buildLine(data);

@@ -44,6 +44,10 @@ function buildBans(dataset) {
 	const pct = ( difference / prevTotal ) * 100;
 	const pctDiff = round(pct, 2);
 
+	console.log(latestTotal);
+	console.log(prevTotal);
+	console.log(difference);
+
 	if (difference >=0) {
 		$("#changeLabel").text("+"+commas(difference));
 	} else {
