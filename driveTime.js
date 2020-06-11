@@ -157,11 +157,12 @@ function getIso() {
       url : centroidUrl
     }).done(function(data) {
       // get the array of points inside the buffer
-      var collected = turf.collect(isochrone, data, 'geoid', 'geoid');
+      console.log(data);
+      var collected = turf.collect(isochrone, data, 'GEOID', 'GEOID');
       console.log(collected);
 
       // get the necessary property of the centroid to populate APIs for data requests
-      const values = collected.features[0].properties.geoid;
+      const values = collected.features[0].properties.GEOID;
       const areas = values.map(value => "LAUCN"+value+"0000000006").join(',');
 
       map.setFilter('counties', ["all",["match",["get","geoid"],values,true,false]]);
@@ -207,7 +208,7 @@ function getIso() {
           "data": {
             "seriesid": areas,
             "startyear":"2017",
-            "endyear":"2019",
+            "endyear":"2020",
           }
         }
         // FETCH DATA VIA API
@@ -238,7 +239,7 @@ function getIso() {
           });
           isoMarker.setLngLat(lngLat);
           console.log(isoMarker);
-          map.setLayoutProperty('counties', 'visibility','visible');
+          map.setLayoutProperty('workforceAssets', 'visibility','visible');
           map.setLayoutProperty('isoLayer', 'visibility','visible');
           $('.side-panel-container').show();
         });

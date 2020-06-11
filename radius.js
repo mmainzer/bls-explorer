@@ -175,7 +175,7 @@ function getBuffer() {
 			  "data": {
 			    "seriesid": areas,
 			    "startyear":"2017",
-			    "endyear":"2019",
+			    "endyear":"2020",
 			  }
 			}
 

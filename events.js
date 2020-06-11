@@ -1,5 +1,4 @@
 
-
 // function to detect Internet Explorer
 
 function isInternetExplorer() {
@@ -212,7 +211,7 @@ document.getElementById('geo-data-update').onclick = function updateGeography() 
 		  "data": {
 		    "seriesid": areas,
 		    "startyear":"2017",
-		    "endyear":"2019",
+		    "endyear":"2020",
 		  }
 		}
 
@@ -284,7 +283,7 @@ function getBounds(filterArray) {
 		rate = round(rate, 1);
 
 		// create text for unemployment rate label
-		$("#unemploymentRateLabel").text(rate+"%");
+		// $("#unemploymentRateLabel").text(rate+"%");
 
 		let boundingBox = turf.bbox(area);
 

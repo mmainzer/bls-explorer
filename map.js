@@ -1,6 +1,6 @@
 // test
 
- mapboxgl.accessToken = 'pk.eyJ1IjoibW1haW56ZXIiLCJhIjoiY2syNzRpYmI5MGVkNDNobGI4MTB4Y2M0dyJ9._qqif3Sz002pLAFNVwNG2Q';
+ mapboxgl.accessToken = 'pk.eyJ1IjoibW1haW56ZXIiLCJhIjoiY2s2Y2pjNHRyMWN5cDNtcWVudmFhNDJ0diJ9.8b7KyCNL_Xv_fAEiLMQXdg';
 
     const map = new mapboxgl.Map({
       container: 'map', // container id
@@ -46,7 +46,7 @@
     const buffLayer = map.getLayer('buffer');
     const countyLayer = map.getLayer('counties');
 
-    const centroidId = 'ck58cwk8y0er12opdahsprtsy';
+    const centroidId = 'ckaipg8t60jk622k72wvk46un';
     const centroidUrl = "https://api.mapbox.com/datasets/v1/mmainzer/" + centroidId + "/features?access_token=" + mapboxgl.accessToken;
 
     const polygonId = 'ck5cyrs0p20qc2imh0ti1irml';

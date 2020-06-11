@@ -23,6 +23,7 @@ function buildBans(dataset) {
 
 	// for each series id, build necessary properties
 	dataset.forEach(function(element) {
+		console.log(element.data);
 		let seriesID = element.seriesID;
 		let latest = Number(element.data[0].value);
 		let previous = Number(element.data[12].value);
@@ -143,7 +144,7 @@ function buildLine(dataset) {
 	        .call(xAxis_woy);
 
 	//  Add the Y Axis
-	svg.append("g").call(d3.axisLeft(y).ticks(5).tickFormat(d3.formatPrefix(".2", 1e6)));
+	svg.append("g").call(d3.axisLeft(y).ticks(5).tickFormat(d3.format("~s")));
 
 }
 
@@ -190,6 +191,8 @@ function buildTable(dataset) {
 		arrAll.push(tempArray);
 	});
 
+	console.log(arrAll);
+
 	let tableData = [];
 	arrAll.forEach(function(element) {
 		for (index = 0; index < element.length; ++index) {
@@ -197,10 +200,12 @@ function buildTable(dataset) {
 		}
 	});
 
+	console.log(arrAll);
+	console.log(tableData);
+
 	// build row and send to html table
 	tableData.forEach(function(rowData) {
 		var row = document.createElement('tr');
-
 		rowData.forEach(function(cellData) {
 			var cell = document.createElement('td');
 			cell.appendChild(document.createTextNode(cellData));
