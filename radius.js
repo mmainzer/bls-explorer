@@ -131,10 +131,10 @@ function getBuffer() {
 		url:centroidUrl
 	}).done(function(data) {
 		// get the array of points inside the buffer
-    	var collected = turf.collect(bufferFC, data, 'geoid', 'geoid');
+    	var collected = turf.collect(bufferFC, data, 'GEOID', 'GEOID');
 
     	// get the necessary property of the centroid to populate APIs for data requests
-    	const values = collected.features[0].properties.geoid;
+    	const values = collected.features[0].properties.GEOID;
 		const areas = values.map(value => "LAUCN"+value+"0000000006").join(',');
 
 		map.setFilter('counties', ["all",["match",["get","geoid"],values,true,false]]);
