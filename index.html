@@ -56,7 +56,7 @@
     </form>
   </div>
 
-    <!-- BROWSER ALERT IF INTERNET EXPLORER -->
+    <!-- GEOGRAPHY ALERT IF TOO MANY GEOGRAPHIES SELECTED -->
   <div id="geoAlert" class="absolute fl py24 px24 bg-gray-faint">
     <form class="formTitle">
       <div class="form-title-tab">
@@ -253,15 +253,15 @@
       <div class="row label-row">
         <div class="col-4">
           <h2 class="label ban" id="totalLabel"></h2>
-          <p class="label-subtitle">in Labor Force (Apr 2020)</p>
+          <p class="label-subtitle" id="latestMonth"></p>
         </div>
         <div class="col-4">
           <h2 class="label ban" id="changeLabel"></h2>
-          <p class="label-subtitle">since Apr 2019</p>
+          <p class="label-subtitle prev-month">since Apr 2019</p>
         </div>
         <div class="col-4">
           <h2 class="label ban" id="pctChangeLabel"></h2>
-          <p class="label-subtitle">since Apr 2019</p>
+          <p class="label-subtitle prev-month">since Apr 2019</p>
         </div>
         <!-- <div class="col-3">
           <h2 class="label ban" id="unemploymentRateLabel"></h2>

@@ -35,7 +35,6 @@ isoGeocoder.on('result', function(ev) {
         lngLat = [coords[0], coords[1]];
 
         isoMarker.setLngLat(lngLat).addTo(map);
-        console.log(isoMarker);
 
         getIso();
 
@@ -124,7 +123,6 @@ function getIso() {
     lngLat = [lngLat.lng,lngLat.lat];
 
     var url = urlBase + profile + '/' + lngLat + '?contours_minutes=' + minutes + '&polygons=true&access_token=' + mapboxgl.accessToken;
-    console.log(url);
 
     // make initial call to get your isochrone geojson
     $.ajax({
@@ -157,9 +155,7 @@ function getIso() {
       url : centroidUrl
     }).done(function(data) {
       // get the array of points inside the buffer
-      console.log(data);
       var collected = turf.collect(isochrone, data, 'GEOID', 'GEOID');
-      console.log(collected);
 
       // get the necessary property of the centroid to populate APIs for data requests
       const values = collected.features[0].properties.GEOID;
@@ -167,14 +163,10 @@ function getIso() {
 
       map.setFilter('counties', ["all",["match",["get","geoid"],values,true,false]]);
 
-      console.log(values);
-      console.log(areas);
 
       let features = data.features.filter(function(item) {
         return values.indexOf(item.properties.geoid) !== -1;
       });
-
-      console.log(features);
 
       let laborTotal = 0;
       let unemploymentTotal = 0;
@@ -238,7 +230,6 @@ function getIso() {
             padding : bbox
           });
           isoMarker.setLngLat(lngLat);
-          console.log(isoMarker);
           map.setLayoutProperty('workforceAssets', 'visibility','visible');
           map.setLayoutProperty('isoLayer', 'visibility','visible');
           $('.side-panel-container').show();

@@ -80,8 +80,8 @@
       });
 
       map.addLayer({
-        'id':'counties',
-        'type':'fill',
+        'id': 'counties',
+        'type': 'fill',
         'source':'southeast-counties',
         'layout': {
           'visibility':'none',

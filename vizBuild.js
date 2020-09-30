@@ -20,13 +20,15 @@ function buildBans(dataset) {
 
 	let latestTotal = 0;
 	let prevTotal = 0;
+	let month = [];
 
 	// for each series id, build necessary properties
 	dataset.forEach(function(element) {
-		console.log(element.data);
 		let seriesID = element.seriesID;
 		let latest = Number(element.data[0].value);
 		let previous = Number(element.data[12].value);
+		let m = element.data[0].periodName;
+		month.push(m);
 
 		latestTotal += latest;
 		prevTotal += previous;
@@ -45,9 +47,8 @@ function buildBans(dataset) {
 	const pct = ( difference / prevTotal ) * 100;
 	const pctDiff = round(pct, 2);
 
-	console.log(latestTotal);
-	console.log(prevTotal);
-	console.log(difference);
+	$("#latestMonth").text("in Labor Force ("+month[0]+" 2020)");
+	$(".prev-month").text("since "+month[0]+" 2019");
 
 	if (difference >=0) {
 		$("#changeLabel").text("+"+commas(difference));
@@ -62,6 +63,7 @@ function buildBans(dataset) {
 	}
 
 	$("#totalLabel").text(commas(latestTotal));
+
 }
 
 function buildLine(dataset) {
@@ -149,7 +151,6 @@ function buildLine(dataset) {
 }
 
 function buildTable(dataset) {
-	console.log(dataset);
 	let str = '<tr>';
 	let headers = [' ','Area','Month','Year','Labor Force'];
 
@@ -191,7 +192,6 @@ function buildTable(dataset) {
 		arrAll.push(tempArray);
 	});
 
-	console.log(arrAll);
 
 	let tableData = [];
 	arrAll.forEach(function(element) {
@@ -200,8 +200,6 @@ function buildTable(dataset) {
 		}
 	});
 
-	console.log(arrAll);
-	console.log(tableData);
 
 	// build row and send to html table
 	tableData.forEach(function(rowData) {

@@ -190,8 +190,8 @@ document.getElementById('geo-data-update').onclick = function updateGeography() 
 		var areas = selectedGeoids.map(selectedGeoid => "LAUCN"+selectedGeoid+"0000000006").join(',');
 	}
 
-	console.log(selectedGeoids);
-	console.log(selectedGeoids.length);
+	// console.log(selectedGeoids);
+	// console.log(selectedGeoids.length);
 
 	if (selectedGeoids.length > 50) {
 		showError();
