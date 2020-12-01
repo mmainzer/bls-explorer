@@ -178,11 +178,14 @@ document.getElementById('geo-data-update').onclick = function updateGeography() 
 	// get the matching geoids from the geography dict in data.js and push to an array
 	// generate array for area parameter
 	if (selectedLevel === 'MSA') {
-		var selectedGeoidsArrays = selectedGeographies.map(id => countyObj.msas.find(({ area }) => area === id).geoid);
+		console.log(selectedGeographies);
+		var selectedGeoidsArrays = selectedGeographies.map(id => msaObj.msas.find(({ area }) => area === id).prefix);
 		var selectedGeoids = [].concat.apply([], selectedGeoidsArrays);
+		console.log(selectedGeoidsArrays);
+		console.log(selectedGeoids)
 		map.setFilter('counties', ["all",["match",["get","geoid"],selectedGeoids,true,false]]);
 		map.setLayoutProperty('counties', 'visibility','visible');
-		var areas = selectedGeoids.map(selectedGeoid => "LAUCN"+selectedGeoid+"0000000006").join(',');
+		var areas = selectedGeoids.map(selectedGeoid => "LAU"+selectedGeoid+"00000006").join(',');
 	} else if (selectedLevel === 'County') {
 		var selectedGeoids = selectedGeographies.map(id => countyObj.counties.find(({ area }) => area === id).geoid);
 		map.setFilter('counties', ["all",["match",["get","geoid"],selectedGeoids,true,false]]);
@@ -192,6 +195,7 @@ document.getElementById('geo-data-update').onclick = function updateGeography() 
 
 	// console.log(selectedGeoids);
 	// console.log(selectedGeoids.length);
+	console.log(areas);
 
 	if (selectedGeoids.length > 50) {
 		showError();

@@ -125,7 +125,7 @@ function buildLine(dataset) {
 	let y = d3.scaleLinear().range([height, 0]);
 
 
-	y.domain([d3.min(lineData, function(d) { return d.laborForce; }) - 500, d3.max(lineData, function(d) { return d.laborForce; }) + 5]);
+	y.domain([0, d3.max(lineData, function(d) { return d.laborForce; }) + 5]);
 
 	let valueline = d3.line()
 	        .x(function(d) { return x(d.date); })
