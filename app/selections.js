@@ -60,6 +60,7 @@ $("#isoModify").click(function() {
 	$('.iso-params').css('display','flex');
 });
 
+
 // when clicking get data, fire events
 $("#geo-data-update").click( () => {
 

@@ -4,10 +4,10 @@ const setLayers = (filterArray) => {
 	let cbsa = [];
 	let fips = [];
 	filterArray.forEach( (element) => {
-		if (element.startsWith('13') === true) {
-			fips.push(element);
+		if (element.endsWith('0') === true) {
+			cbsa.push(element);
 		} else {
-			cbsa.push(element)
+			fips.push(element)
 		}
 	});
 	console.log(cbsa);
