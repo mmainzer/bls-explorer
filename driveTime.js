@@ -123,7 +123,7 @@ function getIso() {
     lngLat = [lngLat.lng,lngLat.lat];
 
     var url = urlBase + profile + '/' + lngLat + '?contours_minutes=' + minutes + '&polygons=true&access_token=' + mapboxgl.accessToken;
-
+    console.log(url);
     // make initial call to get your isochrone geojson
     $.ajax({
     	method: 'GET',
