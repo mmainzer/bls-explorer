@@ -1,6 +1,10 @@
 // test
 
 mapboxgl.accessToken = 'pk.eyJ1IjoiZ3BjZWNvbmRldiIsImEiOiJja2kyNGY1dGkwbTg4MndxbnlsZXRuOXgyIn0.qWgZ_I1LvZIAID7t5XbEnQ';
+const esriToken = 'AAPKcb414e3fd1b34bbd97cc0323e0698159ydaqx1AVTb_m9KC-YdyeHTFdTHgj_31yHlp9y8kfH6QhKvWYQ9qHDEH7CtglER4o';
+const authentication = new arcgisRest.ApiKey({
+  key: esriToken
+});
 
 const map = new mapboxgl.Map({
   container: 'map', // container id

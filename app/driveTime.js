@@ -97,23 +97,68 @@ const getIso = () => {
 	map.setLayoutProperty('countyFill', 'visibility','none');
 
 	let lngLat = isoMarker.getLngLat();
-    isoMarker.setLngLat(lngLat);
+  isoMarker.setLngLat(lngLat);
 
-    lngLat = [lngLat.lng,lngLat.lat];
+  lngLat = [lngLat.lng,lngLat.lat];
+  console.log( lngLat );
 
-    const url = urlBase + profile + '/' + lngLat + '?contours_minutes=' + minutes + '&polygons=true&access_token=' + mapboxgl.accessToken;
-    console.log(url);
-	$.ajax({
-		method:'GET',
-		url:url
-	}).done( function(isochrone) {
-		console.log(isochrone);
-		// Set the 'iso' source'sdata to what's returned by the API query
-    	map.getSource('iso').setData(isochrone);
+  const url = urlBase + profile + '/' + lngLat + '?contours_minutes=' + minutes + '&polygons=true&access_token=' + mapboxgl.accessToken;
+  console.log(url);
+  let str = $('.mapboxgl-ctrl-geocoder--input').val();
+  str = str.substr(0, str.lastIndexOf(","));
+  console.log(str);
+	
+// with mapbox and ajax
+ //  $.ajax({
+	// 	method:'GET',
+	// 	url:url
+	// }).done( function(isochrone) {
+	// 	console.log(isochrone);
+	// 	// Set the 'iso' source'sdata to what's returned by the API query
+ //    	map.getSource('iso').setData(isochrone);
 
-    	let bbox = turf.bbox(isochrone);
+ //    	let bbox = turf.bbox(isochrone);
 
-    	if(typeof isoLayer === 'undefined') {
+ //    	if(typeof isoLayer === 'undefined') {
+ //            // add isochrone layer
+ //            map.addLayer({
+ //              'id': 'isoLayer',
+ //              'type': 'line',
+ //              'source': 'iso',
+ //              'layout': {
+ //                'visibility':'visible'
+ //              },
+ //              'paint': {
+ //                "line-width" : 1
+ //              }
+ //            }, "countyFill");
+ //        }
+
+ //        map.setFilter('centroids',['within',isochrone]);
+
+ //        setTimeout(getCentroids, 500);
+
+
+	// });
+
+// with esri
+  arcgisRest
+    .serviceArea({
+      authentication,
+      facilities: [ lngLat ],
+      params: {
+        defaultBreaks:minutes.toString()
+      }
+    }).then((response) => {
+
+      response = response.saPolygons.geoJson;
+      console.log(response);
+
+      map.getSource('iso').setData(response);
+
+      let bbox = turf.bbox(response);
+
+      if(typeof isoLayer === 'undefined') {
             // add isochrone layer
             map.addLayer({
               'id': 'isoLayer',
@@ -128,12 +173,11 @@ const getIso = () => {
             }, "countyFill");
         }
 
-        map.setFilter('centroids',['within',isochrone]);
+        map.setFilter('centroids',['within',response]);
 
         setTimeout(getCentroids, 500);
 
-
-	});
+    });
 
 }
 

@@ -249,10 +249,13 @@ const prepData = (data, variable, newData) => {
 
 const makeCall = (series, geoFilter) => {
 
+	  	console.log(series);
+
 	  	const settings = {
 		  "async": true,
 		  "crossDomain": true,
-		  "url": "https://api.bls.gov/publicAPI/v2/timeseries/data/?registrationkey=2075e7710bca44038c4abc07eecee9d5",
+		  // "url": "https://api.bls.gov/publicAPI/v2/timeseries/data/?registrationkey=2075e7710bca44038c4abc07eecee9d5",
+		  "url": "https://api.bls.gov/publicAPI/v2/timeseries/data/?registrationkey=6aff0b6bece9458d9ecfb4cd10a3a375",
 		  "method": "POST",
 		  "headers": {
 		    "Content-Type": "application/x-www-form-urlencoded"
