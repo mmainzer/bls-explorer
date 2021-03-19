@@ -108,8 +108,8 @@ map.on('load', function() {
       'visibility':'visible',
     },
     'paint': {
-      "circle-color": "hsla(0, 0%, 0%, 0.01)",
-      'circle-radius':0.1
+      "circle-color": "hsla(0, 0%, 0%, 0.99)",
+      'circle-radius':5
     },
     'source-layer': 'usCountiesCentroids-bad1gv'
   }, 'admin-1-boundary-bg')

@@ -173,6 +173,8 @@ const buildTable = (datasetOne, datasetTwo) => {
 		tempArray.push(element.area);
 		tempArray.push(element.month);
 		tempArray.push(element.year);
+		console.log(element.laborForce);
+		console.log(element.unemployed);
 		tempArray.push(commas(element.laborForce));
 		tempArray.push(commas(element.unemployed));
 		tempArray.push(round(ur,1)+"%");
@@ -262,8 +264,8 @@ const makeCall = (series, geoFilter) => {
 		  },
 		  "data": {
 		    "seriesid": series,
-		    "startyear":"2017",
-		    "endyear":"2020",
+		    "startyear":"2018",
+		    "endyear":"2021",
 		  }
 		}
 

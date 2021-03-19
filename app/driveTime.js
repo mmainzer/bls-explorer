@@ -2,14 +2,15 @@
 const isoParams = document.getElementById('isoParams');
 
 // Create variables to use in getIso()
-const urlBase = 'https://api.mapbox.com/isochrone/v1/mapbox/';
+const urlBase = 'https://route-api.arcgis.com/arcgis/rest/services/World/ServiceAreas/NAServer/ServiceArea_World/solveServiceArea?facilities=';
+// const urlBase = 'https://api.mapbox.com/isochrone/v1/mapbox/';
 let profile = 'driving';
 let minutes = 30;
 
 // Set up a marker that you can use to show the query's coordinates
 const isoMarker = new mapboxgl.Marker({
   'color': '#314ccd',
-  'draggable': true
+  'draggable': false
 });
 
 // fire when geocoder result is executed
@@ -18,7 +19,8 @@ isoGeocoder.on('result', function(ev) {
         isoMarker.remove();
         // bufferMarker.remove();
 
-        var urlBase = 'https://api.mapbox.com/isochrone/v1/mapbox/';
+        // var urlBase = 'https://api.mapbox.com/isochrone/v1/mapbox/';
+        // const urlBase = 'https://route-api.arcgis.com/arcgis/rest/services/World/ServiceAreas/NAServer/ServiceArea_World/solveServiceArea?facilities=';
 
         if(typeof isoLayer !== 'undefined') {
           // clear the map on result if layer exists
@@ -75,8 +77,8 @@ const bufferDragEnd = () => {
 	getBuffer();
 }
 
-isoMarker.on('dragstart', onDragStart);
-isoMarker.on('dragend', isoDragEnd);
+// isoMarker.on('dragstart', onDragStart);
+// isoMarker.on('dragend', isoDragEnd);
 
 
 const getIso = () => {
@@ -100,84 +102,88 @@ const getIso = () => {
   isoMarker.setLngLat(lngLat);
 
   lngLat = [lngLat.lng,lngLat.lat];
-  console.log( lngLat );
 
-  const url = urlBase + profile + '/' + lngLat + '?contours_minutes=' + minutes + '&polygons=true&access_token=' + mapboxgl.accessToken;
-  console.log(url);
+  // const url = urlBase + profile + '/' + lngLat + '?contours_minutes=' + minutes + '&polygons=true&access_token=' + mapboxgl.accessToken;
+  const url = urlBase + lngLat + '&defaultBreaks=' + minutes + '&outSR=4326&f=json&token=' + esriToken;
+
   let str = $('.mapboxgl-ctrl-geocoder--input').val();
   str = str.substr(0, str.lastIndexOf(","));
-  console.log(str);
 	
 // with mapbox and ajax
- //  $.ajax({
-	// 	method:'GET',
-	// 	url:url
-	// }).done( function(isochrone) {
-	// 	console.log(isochrone);
-	// 	// Set the 'iso' source'sdata to what's returned by the API query
- //    	map.getSource('iso').setData(isochrone);
+  $.ajax({
+		method:'GET',
+		url:url
+	}).done( function(isochrone) {
 
- //    	let bbox = turf.bbox(isochrone);
+    let geo = {
+      "type" : "Polygon",
+      "coordinates" : isochrone.saPolygons.features[0].geometry.rings
+    }
+    isochrone = turf.feature( geo );
 
- //    	if(typeof isoLayer === 'undefined') {
- //            // add isochrone layer
- //            map.addLayer({
- //              'id': 'isoLayer',
- //              'type': 'line',
- //              'source': 'iso',
- //              'layout': {
- //                'visibility':'visible'
- //              },
- //              'paint': {
- //                "line-width" : 1
- //              }
- //            }, "countyFill");
- //        }
+		// Set the 'iso' source'sdata to what's returned by the API query
+  	map.getSource('iso').setData(isochrone);
 
- //        map.setFilter('centroids',['within',isochrone]);
+  	let bbox = turf.bbox(isochrone);
 
- //        setTimeout(getCentroids, 500);
+  	if(typeof isoLayer === 'undefined') {
+          // add isochrone layer
+          map.addLayer({
+            'id': 'isoLayer',
+            'type': 'line',
+            'source': 'iso',
+            'layout': {
+              'visibility':'visible'
+            },
+            'paint': {
+              "line-width" : 1
+            }
+          }, "countyFill");
+      }
 
+      map.setFilter('centroids',['within',isochrone]);
 
-	// });
+      setTimeout(getCentroids, 500);
+
+	});
 
 // with esri
-  arcgisRest
-    .serviceArea({
-      authentication,
-      facilities: [ lngLat ],
-      params: {
-        defaultBreaks:minutes.toString()
-      }
-    }).then((response) => {
+  // arcgisRest
+  //   .serviceArea({
+  //     authentication: authentication,
+  //     facilities: [ lngLat ],
+  //     params: {
+  //       defaultBreaks : minutes.toString()
+  //     }
+  //   }).then((response) => {
 
-      response = response.saPolygons.geoJson;
-      console.log(response);
+  //     response = response.saPolygons.geoJson;
+  //     console.log(response);
 
-      map.getSource('iso').setData(response);
+  //     map.getSource('iso').setData(response);
 
-      let bbox = turf.bbox(response);
+  //     let bbox = turf.bbox(response);
 
-      if(typeof isoLayer === 'undefined') {
-            // add isochrone layer
-            map.addLayer({
-              'id': 'isoLayer',
-              'type': 'line',
-              'source': 'iso',
-              'layout': {
-                'visibility':'visible'
-              },
-              'paint': {
-                "line-width" : 1
-              }
-            }, "countyFill");
-        }
+  //     if(typeof isoLayer === 'undefined') {
+  //           // add isochrone layer
+  //           map.addLayer({
+  //             'id': 'isoLayer',
+  //             'type': 'line',
+  //             'source': 'iso',
+  //             'layout': {
+  //               'visibility':'visible'
+  //             },
+  //             'paint': {
+  //               "line-width" : 1
+  //             }
+  //           }, "countyFill");
+  //       }
 
-        map.setFilter('centroids',['within',response]);
+  //       map.setFilter('centroids',['within',response]);
 
-        setTimeout(getCentroids, 500);
+  //       setTimeout(getCentroids, 500);
 
-    });
+  //   });
 
 }
 
