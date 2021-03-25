@@ -42,8 +42,8 @@ const buildBans = (dataset, datasetTwo) => {
 	let pct = ( difference / prevTotal ) * 100;
 	let pctDiff = round(pct, 2);
 
-	$("#latestMonth").text("in Labor Force ("+month[0]+" 2020)");
-	$(".prev-month").text("since "+month[0]+" 2019");
+	$("#latestMonth").text("in Labor Force ("+month[0]+" 2021)");
+	$(".prev-month").text("since "+month[0]+" 2020");
 
 	if (difference >=0) {
 		$("#changeLabel").text("+"+commas(difference));
@@ -98,9 +98,9 @@ const buildUnemployedBans = (dataset, array, latestTotal, prevTotal) => {
 	const uRate = ( uTotal / latestTotal ) * 100;
 	const lastRate = ( uPrev / prevTotal ) * 100;
 
-	$("#latestMonthUnemployed").text("unemployed in ("+month[0]+" 2020)");
-	$(".last-month").text(month[0]+" 2019 unemployment rate");
-	$(".current-month").text(month[0]+" 2020 unemployment rate");
+	$("#latestMonthUnemployed").text("unemployed in ("+month[0]+" 2021)");
+	$(".last-month").text(month[0]+" 2020 unemployment rate");
+	$(".current-month").text(month[0]+" 2021 unemployment rate");
 	$("#unemployedLabel").text( commas(uTotal) );
 	$("#currentUnemployedRate").text( round(uRate, 1)+"%" );
 	$("#prevUnemployedRate").text( round(lastRate, 1)+"%" );
@@ -264,7 +264,7 @@ const makeCall = (series, geoFilter) => {
 		  },
 		  "data": {
 		    "seriesid": series,
-		    "startyear":"2018",
+		    "startyear":"2019",
 		    "endyear":"2021",
 		  }
 		}
